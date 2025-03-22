@@ -1,0 +1,6 @@
+Customer ID,Age,Gender,Purchase History,Interests,Engagement Score,Sentiment Score,Social Media Activity
+101,25,Male,Electronics, Gaming|Tech Gadgets|AI,85,0.7,High
+102,34,Female,Luxury Apparel, Cosmetics|Fashion|Sustainability,73,0.4,Medium
+103,28,Male,Books, Online Courses|Self-improvement|Finance,90,0.9,Low
+104,45,Female,Home Decor, Organic Products|Wellness|Art,65,0.3,Medium
+105,30,Non-binary,Travel, Outdoor Gear|Adventure|Photography,80,0.6,High
