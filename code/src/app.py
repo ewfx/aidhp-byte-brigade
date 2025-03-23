@@ -1,6 +1,7 @@
 # app.py
 import json
 import os
+
 import openai
 import pandas as pd
 import requests
@@ -10,7 +11,7 @@ from google import genai
 from nltk.sentiment import SentimentIntensityAnalyzer
 from sentence_transformers import SentenceTransformer
 from sentence_transformers import util
-from transformers import BartForConditionalGeneration, BartTokenizer, CLIPProcessor, CLIPModel
+from transformers import BartForConditionalGeneration, BartTokenizer, CLIPProcessor, CLIPModel, pipeline
 
 # Flask API initialization
 app = Flask(__name__)
@@ -36,6 +37,8 @@ clip_model = CLIPModel.from_pretrained(clip_model_name)
 clip_processor = CLIPProcessor.from_pretrained(clip_model_name)
 sbert_model = SentenceTransformer("all-MiniLM-L6-v2")
 sia = SentimentIntensityAnalyzer()
+# Load summarization model
+summarizer = pipeline("summarization", model="t5-small")
 
 # Get the absolute path of the project root (move two levels up from src)
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -58,7 +61,7 @@ def analyze_sentiment(text):
 # Gemini Recommendation Function
 def get_gemini_recommendation(profile_data):
     prompt = f"""
-        You are a recommendation engine. Based on this user profile, suggest 1 actual branded recommended product along with the product type in a key-value pair.Valid keys are product_name and product_type. No rationale is required.
+        You are a recommendation engine. Based on this user profile, suggest 3 actual branded recommended products along with the product type in a key-value pair.Valid keys are product_name and product_type. No rationale is required.
         Profile: {profile_data}
         """
     response = client.models.generate_content(
@@ -83,12 +86,19 @@ def get_gpt_recommendation(profile_data):
 
     return response['choices'][0]['text'].strip()
 
-# Fine-tuned BART for summarizing recommendations
+# Hugging Face’s T5 model  for summarizing recommendations
 def summarize_recommendations(recommendations):
-    inputs = bart_tokenizer(recommendations, return_tensors="pt", max_length=1024, truncation=True)
-    summary_ids = bart_model.generate(inputs["input_ids"], max_length=50, min_length=20, length_penalty=2.0)
-    summary = bart_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
-    return summary
+    # Ensure recommendations is a list, not a string
+    if isinstance(recommendations, str):
+        recommendations = json.loads(recommendations)
+
+    # Convert recommendations to readable text format
+    recommendation_text = ", ".join([f"{item['product_name']} ({item['product_type']})" for item in recommendations])
+
+    # Summarize
+    summary = summarizer(f"Summarßize: {recommendation_text}", max_length=300, min_length=10, do_sample=False)
+
+    return summary[0]['summary_text']
 
 
 # CLIP for multi-modal matching
@@ -107,7 +117,6 @@ def get_text_similarity(profile_data, recommendations):
 
 # Get Product image and purchase link using GCP Custom Search API
 def get_image_purchase_link(product_name,product_type):
-
     search_query = f"Buy {product_type} {product_name} online"
     search_url = f"https://www.googleapis.com/customsearch/v1?q={search_query}&key={google_api_key}&cx={search_engine_id}&searchType=image"
 
@@ -155,17 +164,19 @@ def recommend():
         "Customer ID": customer_id,
         "Profile Summary": profile_data,
         "Sentiment Score": sentiment_score,
-        "Recommendations": summarized_recommendations,
+        "Recommendations": recommendations,
+        "Summarized Recommendations": summarized_recommendations,
         "Similarity Score": similarity_score,
         "CLIP Image Match": "Available" if image_features is not None else "Not Available"
     }
     recommendation_data = json.loads(result["Recommendations"])
-    product_name = recommendation_data["product_name"]
-    product_type = recommendation_data["product_type"]
-    image_link,purchase_link=get_image_purchase_link(product_name,product_type)
-    if image_link and purchase_link:
-        result["purchase_link"] = purchase_link
-        result["image_link"] = image_link
+    for product in recommendation_data:
+        product_name = product["product_name"]
+        product_type = product["product_type"]
+        image_link, purchase_link = get_image_purchase_link(product_name, product_type)
+        product["image_link"] = image_link if image_link else "Not Available"
+        product["purchase_link"] = purchase_link if purchase_link else "Not Available"
+    result["Recommendations"] = recommendation_data
     # Load pre-trained model
     #model = SentenceTransformer('all-MiniLM-L6-v2')
 
