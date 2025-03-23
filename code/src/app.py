@@ -1,26 +1,31 @@
 # app.py
+import json
+import os
 import openai
 import pandas as pd
-import json
-import torch
-from transformers import BartForConditionalGeneration, BartTokenizer, CLIPProcessor, CLIPModel, Pipeline, pipeline
-from sentence_transformers import SentenceTransformer, util
-from nltk.sentiment import SentimentIntensityAnalyzer
-from textblob import TextBlob
-import spacy
+import requests
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from sentence_transformers import SentenceTransformer, losses, InputExample
-from torch.utils.data import DataLoader
-from huggingface_hub import login
 from google import genai
+from nltk.sentiment import SentimentIntensityAnalyzer
+from sentence_transformers import SentenceTransformer
+from sentence_transformers import util
+from transformers import BartForConditionalGeneration, BartTokenizer, CLIPProcessor, CLIPModel
+
 # Flask API initialization
 app = Flask(__name__)
 
+
+# Load environment variables from .env file
+load_dotenv()
+
 # Load fine-tuned models and config
-openai.api_key = "YOUR_OPENAI_API_KEY"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 bart_model_name = "facebook/bart-base"
 clip_model_name = "openai/clip-vit-base-patch32"
-gemini_api_key = "YOUR_GEMINI_API_KEY"
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+search_engine_id = os.getenv("SEARCH_ENGINE_ID")
+google_api_key = os.getenv("GOOGLE_API_KEY")
 client = genai.Client(api_key=gemini_api_key)
 
 
@@ -32,18 +37,28 @@ clip_processor = CLIPProcessor.from_pretrained(clip_model_name)
 sbert_model = SentenceTransformer("all-MiniLM-L6-v2")
 sia = SentimentIntensityAnalyzer()
 
+# Get the absolute path of the project root (move two levels up from src)
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+# Construct the correct file path
+file_path = os.path.join(base_dir, "data", "customer_data.csv")
+models_dir = os.path.join(base_dir, "models")
+model_path = os.path.join(models_dir, "fine_tuned_model.pt")
+
+
 # Load dataset
-data = pd.read_csv("data/customer_data.csv")
+data = pd.read_csv(file_path)
 
 
 # Sentiment Analysis using VADER
 def analyze_sentiment(text):
     sentiment_score = sia.polarity_scores(text)
     return sentiment_score['compound']
+
+# Gemini Recommendation Function
 def get_gemini_recommendation(profile_data):
-    print("profile_data::"+profile_data)
     prompt = f"""
-        You are a recommendation engine. Based on this user profile, suggest 1 actual branded recommended product along with the product type in a key-value pair. No rationale is required.
+        You are a recommendation engine. Based on this user profile, suggest 1 actual branded recommended product along with the product type in a key-value pair.Valid keys are product_name and product_type. No rationale is required.
         Profile: {profile_data}
         """
     response = client.models.generate_content(
@@ -90,15 +105,31 @@ def get_text_similarity(profile_data, recommendations):
     similarity_score = util.pytorch_cos_sim(profile_embedding, rec_embedding)
     return similarity_score.item()
 
+# Get Product image and purchase link using GCP Custom Search API
+def get_image_purchase_link(product_name,product_type):
+
+    search_query = f"Buy {product_type} {product_name} online"
+    search_url = f"https://www.googleapis.com/customsearch/v1?q={search_query}&key={google_api_key}&cx={search_engine_id}&searchType=image"
+
+    response = requests.get(search_url)
+
+    search_results = response.json()
+
+    if "items" in search_results:
+        # Get the first result
+        image_url = search_results["items"][0]["link"]
+        purchase_url = search_results["items"][0]["image"]["contextLink"]
+
+        return image_url, purchase_url
+    else:
+        return None, None
+
 
 # Generate Recommendations API
 @app.route('/recommend', methods=['POST'])
 def recommend():
     input_data = request.json
     customer_id = input_data.get('customer_id')
-    #print(customer_id)
-    #print(data)
-    #print(data['Customer ID'])
     # Fetch user data
     user_profile = data[data['Customer ID'] == customer_id].to_dict('records')[0]
     profile_data = f"{user_profile['Purchase History']}, {user_profile['Interests']}, {user_profile['Engagement Score']}"
@@ -128,22 +159,28 @@ def recommend():
         "Similarity Score": similarity_score,
         "CLIP Image Match": "Available" if image_features is not None else "Not Available"
     }
+    recommendation_data = json.loads(result["Recommendations"])
+    product_name = recommendation_data["product_name"]
+    product_type = recommendation_data["product_type"]
+    image_link,purchase_link=get_image_purchase_link(product_name,product_type)
+    if image_link and purchase_link:
+        result["purchase_link"] = purchase_link
+        result["image_link"] = image_link
     # Load pre-trained model
-    # Load pre-trained model
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    #model = SentenceTransformer('all-MiniLM-L6-v2')
 
     # Prepare data
-    train_examples = [InputExample(texts=["User Interests", "Recommended Products"], label=0.85)]
-    train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
+    #train_examples = [InputExample(texts=["User Interests", "Recommended Products"], label=0.85)]
+    #train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
 
     # Define cosine similarity loss
-    train_loss = losses.CosineSimilarityLoss(model)
+    #train_loss = losses.CosineSimilarityLoss(model)
 
     # Fine-tune model
-    model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=4, warmup_steps=100)
+    #model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=4, warmup_steps=100)
 
     # Save model
-    model.save("models/fine_tuned_model.pt")
+    #model.save(model_path)
 
     return jsonify(result)
 
