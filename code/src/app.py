@@ -161,22 +161,22 @@ def recommend():
 
     # Final response
     result = {
-        "Customer ID": customer_id,
-        "Profile Summary": profile_data,
-        "Sentiment Score": sentiment_score,
-        "Recommendations": recommendations,
-        "Summarized Recommendations": summarized_recommendations,
-        "Similarity Score": similarity_score,
-        "CLIP Image Match": "Available" if image_features is not None else "Not Available"
+        "customer_id": customer_id,
+        "profile_data": profile_data,
+        "sentiment_score": sentiment_score,
+        "recommendations": recommendations,
+        "summarized_recommendations": summarized_recommendations,
+        "similarity_score": similarity_score,
+        "clip_image_match": "Available" if image_features is not None else "Not Available"
     }
-    recommendation_data = json.loads(result["Recommendations"])
+    recommendation_data = json.loads(result["recommendations"])
     for product in recommendation_data:
         product_name = product["product_name"]
         product_type = product["product_type"]
         image_link, purchase_link = get_image_purchase_link(product_name, product_type)
         product["image_link"] = image_link if image_link else "Not Available"
         product["purchase_link"] = purchase_link if purchase_link else "Not Available"
-    result["Recommendations"] = recommendation_data
+    result["recommendations"] = recommendation_data
     # Load pre-trained model
     #model = SentenceTransformer('all-MiniLM-L6-v2')
 
