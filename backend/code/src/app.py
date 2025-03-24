@@ -143,7 +143,6 @@ def recommend():
         response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
         return response, 200
-    print(request.json)
     input_data = request.json
     #customer_id = input_data.get('customer_id')
     customer_id = int(input_data.get('customer_id'))
@@ -187,6 +186,57 @@ def recommend():
     result["recommendations"] = recommendation_data
 
     response = jsonify(result)
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    return response
+
+@app.route('/getUsers', methods=['GET', 'OPTIONS'])
+def get_users():
+    if request.method == "OPTIONS":
+        response = jsonify({"message": "Preflight OK"})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response, 200
+    users_list = []
+
+    for _, user in data.iterrows():
+        customer_id = int(user['Customer ID'])
+        profile_data = f"{user['Purchase History']}, {user['Interests']}, {user['Engagement Score']}"
+
+        # Sentiment analysis
+        sentiment_score = analyze_sentiment(profile_data)
+
+        # Generate recommendations
+        recommendations = get_gemini_recommendation(profile_data)
+        summarized_recommendations = summarize_recommendations(recommendations)
+
+        # Get image matches using CLIP
+        image_features = get_clip_image_match(summarized_recommendations)
+
+        # Calculate similarity using SBERT
+        similarity_score = get_text_similarity(profile_data, summarized_recommendations)
+
+        # Convert recommendations to JSON format
+        recommendation_data = json.loads(recommendations)
+
+        # Fetch images and purchase links
+        for product in recommendation_data:
+            product_name = product["product_name"]
+            product_type = product["product_type"]
+            image_link, purchase_link = get_image_purchase_link(product_name, product_type)
+            product["image_link"] = image_link if image_link else "Not Available"
+            product["purchase_link"] = purchase_link if purchase_link else "Not Available"
+
+        users_list.append({
+            "customer_id": customer_id,
+            "profile_data": profile_data,
+            "sentiment_score": sentiment_score,
+            "recommendations": recommendation_data,
+            "summarized_recommendations": summarized_recommendations,
+            "similarity_score": similarity_score,
+            "clip_image_match": "Available" if image_features is not None else "Not Available"
+        })
+    response = jsonify(users_list)
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
     return response
 
