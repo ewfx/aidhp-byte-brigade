@@ -7,6 +7,7 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from google import genai
 from nltk.sentiment import SentimentIntensityAnalyzer
 from sentence_transformers import SentenceTransformer
@@ -15,6 +16,7 @@ from transformers import BartForConditionalGeneration, BartTokenizer, CLIPProces
 
 # Flask API initialization
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 
 # Load environment variables from .env file
@@ -45,8 +47,6 @@ base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # Construct the correct file path
 file_path = os.path.join(base_dir, "data", "customer_data.csv")
-models_dir = os.path.join(base_dir, "models")
-model_path = os.path.join(models_dir, "fine_tuned_model.pt")
 
 
 # Load dataset
@@ -135,10 +135,18 @@ def get_image_purchase_link(product_name,product_type):
 
 
 # Generate Recommendations API
-@app.route('/recommend', methods=['POST'])
+@app.route('/recommend', methods=[ 'POST', 'OPTIONS'])
 def recommend():
+    if request.method == "OPTIONS":
+        response = jsonify({"message": "Preflight OK"})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response, 200
+    print(request.json)
     input_data = request.json
-    customer_id = input_data.get('customer_id')
+    #customer_id = input_data.get('customer_id')
+    customer_id = int(input_data.get('customer_id'))
     # Fetch user data
     user_profile = data[data['Customer ID'] == customer_id].to_dict('records')[0]
     profile_data = f"{user_profile['Purchase History']}, {user_profile['Interests']}, {user_profile['Engagement Score']}"
@@ -177,23 +185,10 @@ def recommend():
         product["image_link"] = image_link if image_link else "Not Available"
         product["purchase_link"] = purchase_link if purchase_link else "Not Available"
     result["recommendations"] = recommendation_data
-    # Load pre-trained model
-    #model = SentenceTransformer('all-MiniLM-L6-v2')
 
-    # Prepare data
-    #train_examples = [InputExample(texts=["User Interests", "Recommended Products"], label=0.85)]
-    #train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
-
-    # Define cosine similarity loss
-    #train_loss = losses.CosineSimilarityLoss(model)
-
-    # Fine-tune model
-    #model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=4, warmup_steps=100)
-
-    # Save model
-    #model.save(model_path)
-
-    return jsonify(result)
+    response = jsonify(result)
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    return response
 
 
 # Run Flask app
