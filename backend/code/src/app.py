@@ -148,6 +148,10 @@ def recommend():
     customer_id = int(input_data.get('customer_id'))
     # Fetch user data
     user_profile = data[data['Customer ID'] == customer_id].to_dict('records')[0]
+    purchase_history = user_profile['Purchase History']
+    interests = user_profile['Interests']
+    interests = interests.replace("|", ",")
+    engagement_score = user_profile['Engagement Score']
     profile_data = f"{user_profile['Purchase History']}, {user_profile['Interests']}, {user_profile['Engagement Score']}"
 
     # Get sentiment analysis
@@ -169,7 +173,9 @@ def recommend():
     # Final response
     result = {
         "customer_id": customer_id,
-        "profile_data": profile_data,
+        "purchase_history": purchase_history,
+        "interests": interests,
+        "engagement_score": engagement_score,
         "sentiment_score": sentiment_score,
         "recommendations": recommendations,
         "summarized_recommendations": summarized_recommendations,
@@ -201,6 +207,10 @@ def get_users():
 
     for _, user in data.iterrows():
         customer_id = int(user['Customer ID'])
+        purchase_history = user['Purchase History']
+        interests = user['Interests']
+        interests = interests.replace("|", ",")
+        engagement_score = user['Engagement Score']
         profile_data = f"{user['Purchase History']}, {user['Interests']}, {user['Engagement Score']}"
 
         # Sentiment analysis
@@ -229,7 +239,9 @@ def get_users():
 
         users_list.append({
             "customer_id": customer_id,
-            "profile_data": profile_data,
+            "purchase_history": purchase_history,
+            "interests": interests,
+            "engagement_score": engagement_score,
             "sentiment_score": sentiment_score,
             "recommendations": recommendation_data,
             "summarized_recommendations": summarized_recommendations,

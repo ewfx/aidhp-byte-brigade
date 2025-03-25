@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const AdminDashboard = ({ adminToken, setAdminToken }) => {
+const AdminDashboard = ({ banker, setBanker }) => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!adminToken) {
-      navigate("/admin");
+    if (!banker) {
+      navigate("/banker-login");
       return;
     }
 
@@ -21,19 +21,18 @@ const AdminDashboard = ({ adminToken, setAdminToken }) => {
         setCustomers([]);
       })
       .finally(() => setLoading(false));
-  }, [adminToken, navigate]);
+  }, [banker, navigate]);
 
   const handleLogout = () => {
-    setAdminToken(null);
-    localStorage.removeItem("adminToken");
-    navigate("/admin");
+    setBanker(null);
+    navigate("/");
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
       <div className="flex justify-between items-center p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md">
-        <h1 className="text-2xl font-semibold tracking-wide">Admin Dashboard</h1>
+        <h1 className="text-2xl font-semibold tracking-wide">Banker Dashboard</h1>
         <button
           className="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-lg transition-all transform hover:scale-105 shadow-md"
           onClick={handleLogout}
@@ -59,7 +58,9 @@ const AdminDashboard = ({ adminToken, setAdminToken }) => {
                 <tr className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-left">
                   <th className="p-4 text-lg font-semibold border-b border-gray-300">Customer ID</th>
                   <th className="p-4 text-lg font-semibold border-b border-gray-300">Clip Image Match</th>
-                  <th className="p-4 text-lg font-semibold border-b border-gray-300">Profile Data</th>
+                  <th className="p-4 text-lg font-semibold border-b border-gray-300">Purchase History</th>
+                  <th className="p-4 text-lg font-semibold border-b border-gray-300">Interests</th>
+                  <th className="p-4 text-lg font-semibold border-b border-gray-300">Engagement Score</th>
                   <th className="p-4 text-lg font-semibold border-b border-gray-300">Recommendations</th>
                 </tr>
               </thead>
@@ -73,7 +74,9 @@ const AdminDashboard = ({ adminToken, setAdminToken }) => {
                   >
                     <td className="p-4 text-gray-800 font-medium">{customer.customer_id}</td>
                     <td className="p-4 text-gray-700">{customer.clip_image_match}</td>
-                    <td className="p-4 text-gray-700">{customer.profile_data}</td>
+                    <td className="p-4 text-gray-700">{customer.purchase_history}</td>
+                    <td className="p-4 text-gray-700">{customer.interests}</td>
+                    <td className="p-4 text-gray-700">{customer.engagement_score}</td>
                     <td className="p-4">
                       <div className="flex flex-wrap gap-4">
                         {customer.recommendations.map((rec, idx) => (

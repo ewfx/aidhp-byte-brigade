@@ -13,7 +13,7 @@ const Login = ({ setCustomer }) => {
 
     if (user) {
       setCustomer(user); // Save user info
-      navigate("/home"); // Redirect to Home
+      navigate("/customer-home"); // Redirect to Home
     } else {
       setError("Invalid username or password.");
     }

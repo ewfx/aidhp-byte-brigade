@@ -11,7 +11,7 @@ const Home = ({ customer, setCustomer }) => {
 
   useEffect(() => {
     if (!customer) {
-      navigate("/");
+      navigate("/customer-login");
       return;
     }
 
