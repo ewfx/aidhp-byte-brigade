@@ -96,18 +96,36 @@ Briefly outline the technologies, frameworks, and tools used in development.
 Describe the major technical or non-technical challenges your team encountered.
 
 ## 🏃 How to Run
-1. Clone the repository  
-   ```sh
-   git clone https://github.com/your-repo.git
-   ```
-2. Install dependencies  
-   ```sh
-   npm install  # or pip install -r requirements.txt (for Python)
-   ```
-3. Run the project  
-   ```sh
-   npm start  # or python app.py
-   ```
+### Backend (AI Engine)
+1. Clone the Repository:
+```
+git clone <repository_url>
+cd hyper-ai-recommendation
+```
+2. Install Dependencies:
+```
+pip install -r requirements.txt
+```
+3. Set up API Keys for OpenAI and Hugging Face.
+4. Run the Application:
+```
+python app.py
+```
+
+### Frontend (React Application)
+1. Prerequisites: Node.js, npm or yarn
+2. Clone the Repository:
+
+git clone <TBD>
+3. Install Dependencies:
+
+npm install
+
+4. Run the Application:
+
+npm start
+
+5. Open [http://localhost:3000](http://localhost:3000)
 
 ## 🏗️ Tech Stack
 - 🔹 Frontend: React
