@@ -18,9 +18,11 @@ A brief overview of your project and its purpose. Mention which problem statemen
 
 ## 🎥 Demo
 🔗 [Live Demo](#) 
+
 (https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
 
 📹 [Video Demo](#) 
+
 (https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
 
 🖼️ Screenshots:
@@ -65,5 +67,7 @@ Describe the major technical or non-technical challenges your team encountered.
 - 🔹 Other: OpenAI API / Twilio / Stripe
 
 ## 👥 Team
-- **Your Name** - [GitHub](#) | [LinkedIn](#)
-- **Teammate 2** - [GitHub](#) | [LinkedIn](#)
+- **Bibhudatta Mishra** - [GitHub](#) | [LinkedIn](#)
+- **Abinash Prusty** - [GitHub](#) | [LinkedIn](#)
+- **Zabir Akram** - [GitHub](#) | [LinkedIn](#)
+- **Deepak Kumar Kar** - [GitHub](#) | [LinkedIn](#)
