@@ -54,13 +54,13 @@ Our project is an AI-powered product recommendation system designed to enhance t
 
 **Key Features:**
 
-	1.	**Customer-Specific Recommendations**
+**1.	Customer-Specific Recommendations**
  
 		•	Customers receive personalized product suggestions (e.g., credit cards, loans, investment plans) based on their purchase history, interests, and engagement scores.
   
 		•	Recommendations are fetched using Google Gemini AI and refined through multiple AI models for better accuracy.
   
-	2.	**AI-Driven Insights**
+**2.	AI-Driven Insights**
  
 		•	Hugging Face T5 Model: Summarizes recommendations for easy understanding.
   
@@ -70,13 +70,13 @@ Our project is an AI-powered product recommendation system designed to enhance t
   
 		•	GCP Custom Search API: Retrieves real-time purchase links for recommended products.
   
-	3.	**Dual-Role Access: Customer & Banker Dashboards**
+**3.	Dual-Role Access: Customer & Banker Dashboards**
  
 		•	Customers: View their top recommended products, along with explanations and purchase links.
   
 		•	Bankers: Access a dashboard showing recommendations for all their assigned customers, helping them proactively suggest suitable financial products.
   
-	4.	**Seamless Backend Integration**
+**4.	Seamless Backend Integration**
  
 		•	Customer data is stored in customerdata.csv, which acts as our database.
   
