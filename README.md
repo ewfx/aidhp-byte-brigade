@@ -33,6 +33,9 @@ A brief overview of your project and its purpose. Mention which problem statemen
 
 ![Screenshot 1](link-to-image)
 
+**Architecture:**
+https://github.com/ewfx/aidhp-byte-brigade/blob/main/artifacts/arch/ByteBrigade-Architecture.png
+
 ## Sequence Diagram:
 **Customer Flow**
 ![Customer Flow](artifacts/sequence_diagrams/Customer_Flow.png)
