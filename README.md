@@ -24,10 +24,10 @@ A brief overview of your project and its purpose. Mention which problem statemen
 ![Screenshot 1](link-to-image)
 
 ## Sequence Diagram:
-
-![Customer Flow](artifacts/sequence_diagrams/Customer.png)
-
-![Banker Flow](artifacts/sequence_diagrams/Banker.png)
+**Customer Flow**
+![Customer Flow](artifacts/sequence_diagrams/Customer_Flow.png)
+**Banker Flow**
+![Banker Flow](artifacts/sequence_diagrams/Banker_Flow.png)
 ## 💡 Inspiration
 What inspired you to create this project? Describe the problem you're solving.
 
