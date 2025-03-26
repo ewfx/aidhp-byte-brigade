@@ -53,21 +53,37 @@ By solving this problem, we aim to bridge the gap between customers and financia
 Our project is an AI-powered product recommendation system designed to enhance the banking experience for both customers and bankers. It analyzes customer data and leverages multiple AI models to generate personalized financial product recommendations.
 
 **Key Features:**
+
 	1.	**Customer-Specific Recommendations**
+ 
 		•	Customers receive personalized product suggestions (e.g., credit cards, loans, investment plans) based on their purchase history, interests, and engagement scores.
+  
 		•	Recommendations are fetched using Google Gemini AI and refined through multiple AI models for better accuracy.
+  
 	2.	**AI-Driven Insights**
+ 
 		•	Hugging Face T5 Model: Summarizes recommendations for easy understanding.
+  
 		•	CLIP (Multimodal Matching): Matches customer profiles with product images and descriptions.
+  
 		•	SBERT (Similarity Calculation): Measures similarity between user profiles and product embeddings to improve relevance.
+  
 		•	GCP Custom Search API: Retrieves real-time purchase links for recommended products.
+  
 	3.	**Dual-Role Access: Customer & Banker Dashboards**
+ 
 		•	Customers: View their top recommended products, along with explanations and purchase links.
+  
 		•	Bankers: Access a dashboard showing recommendations for all their assigned customers, helping them proactively suggest suitable financial products.
+  
 	4.	**Seamless Backend Integration**
+ 
 		•	Customer data is stored in customerdata.csv, which acts as our database.
+  
 		•	Backend processes customer ID, retrieves user profile, and interacts with AI models to generate and refine recommendations.
+  
 		•	Response is formatted and displayed in an intuitive user-friendly dashboard.
+  
 
 By combining machine learning, natural language processing, and multimodal AI, our project transforms the way banking products are recommended, ensuring a smarter, more engaging, and highly personalized experience for both customers and bankers. 
 ## 🛠️ How We Built It
