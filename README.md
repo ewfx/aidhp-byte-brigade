@@ -113,7 +113,7 @@ Our project integrates multiple AI models, cloud services, and backend technolog
 	
 **•	Axios** – For handling API calls between the frontend and backend.
 
-**3. Cloud
+**3. Cloud**
 	
 **•	Google Cloud Platform (GCP)** – Hosts APIs and handles custom search functionality.
 	
