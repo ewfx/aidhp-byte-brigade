@@ -17,8 +17,11 @@
 A brief overview of your project and its purpose. Mention which problem statement are your attempting to solve. Keep it concise and engaging.
 
 ## 🎥 Demo
-🔗 [Live Demo](#) (https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
-📹 [Video Demo](#) (https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
+🔗 [Live Demo](#) 
+(https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
+
+📹 [Video Demo](#) 
+(https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
 🖼️ Screenshots:
 
 ![Screenshot 1](link-to-image)
