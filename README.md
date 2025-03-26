@@ -87,7 +87,33 @@ Our project is an AI-powered product recommendation system designed to enhance t
 
 By combining machine learning, natural language processing, and multimodal AI, our project transforms the way banking products are recommended, ensuring a smarter, more engaging, and highly personalized experience for both customers and bankers. 
 ## 🛠️ How We Built It
-Briefly outline the technologies, frameworks, and tools used in development.
+Our project integrates multiple AI models, cloud services, and backend technologies to create a robust AI-powered product recommendation system. Here’s a breakdown of the key components and tools used in development:
+
+**1. Backend & Data Processing**
+	•	Python (FastAPI / Flask) – Used to build the backend API for processing customer requests.
+	•	Pandas  – For handling and processing the customer data stored in customerdata.csv.
+	•	Google Gemini AI – Generates initial product recommendations based on user profiles.
+	•	Hugging Face T5 Model – Summarizes product recommendations for better readability.
+	•	CLIP (Contrastive Language-Image Pretraining) – Matches textual descriptions with product images for multimodal recommendations.
+	•	SBERT (Sentence-BERT) – Calculates similarity between user profiles and product embeddings to refine recommendations.
+	•	GCP Custom Search API – Fetches real-time purchase links for recommended products.
+
+**2. Frontend & User Experience**
+	•	React.js – Used for building the interactive frontend dashboard for both customers and bankers.
+	•	Tailwind CSS – For styling and ensuring a clean UI/UX.
+	•	Axios – For handling API calls between the frontend and backend.
+
+**3. Cloud & Deployment**
+	•	Google Cloud Platform (GCP) – Hosts APIs and handles custom search functionality.
+	•	Hugging Face API – Used for text summarization and model inference.
+	•	Docker – Containerized the backend for easy deployment.
+	•	GitHub – Version control and collaborative development.
+
+**4. Testing & Debugging**
+	•	Postman – Used for API testing and validating response formats.
+
+
+By combining AI, cloud, and web technologies, we built a system that provides highly personalized, data-driven product recommendations in real-time, enhancing the banking experience for both customers and relationship managers.
 
 ## 🚧 Challenges We Faced
 During the development of our AI-powered product recommendation system, we encountered several technical and non-technical challenges. Here are the key obstacles we faced and how we tackled them:
