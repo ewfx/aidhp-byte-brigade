@@ -12,6 +12,8 @@ code {
     monospace;
 }
 
+
+
 /* Add Tailwind directives at the end */
 @tailwind base;
 @tailwind components;

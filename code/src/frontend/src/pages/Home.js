@@ -11,7 +11,7 @@ const Home = ({ customer, setCustomer }) => {
 
   useEffect(() => {
     if (!customer) {
-      navigate("/customer-login");
+      navigate("/");
       return;
     }
 
@@ -28,17 +28,27 @@ const Home = ({ customer, setCustomer }) => {
     navigate("/");
   };
 
+  const menuCss= {backgroundColor: '#d71e28',borderBottom:'4px solid #ffcd41',boxSizing:'border-box' ,font: '15px Arial', padding: '10px 16px'}
+  const menuBtnCss = {backgroundColor:'#fff',borderRadius:'24px',border:'none',borderSizing:'border-box',
+    right:'0',alignItem:'center',display:'flex',
+    height:'40px',justifyContent:"center",minWidth:'82px',
+    position:'relative',top:'-8px',textDecoration:'none',color:"#3B3331",
+    font: '15px Arial', padding: '10px 16px'}
+
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
-      <div className="flex justify-between items-center p-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md">
-        <h1 className="text-2xl font-semibold">Welcome, {customer?.name} 👋</h1>
-        <button
-          className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-transform transform hover:scale-105 shadow-md"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+      <div className="flex justify-between items-center p-6 bg-gradient-to-r text-white shadow-md" style={menuCss}>
+        <h1 className="text-2xl font-semibold tracking-wide">Welcome, {customer?.name} 👋</h1>
+        <div style={{paddingTop:10}}>
+          <button
+            style={menuBtnCss}
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* Main Content */}

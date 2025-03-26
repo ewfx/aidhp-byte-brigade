@@ -7,9 +7,10 @@ const AdminDashboard = ({ banker, setBanker }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     if (!banker) {
-      navigate("/banker-login");
+      navigate("/");
       return;
     }
 
@@ -28,17 +29,27 @@ const AdminDashboard = ({ banker, setBanker }) => {
     navigate("/");
   };
 
+  const menuCss= {backgroundColor: '#d71e28',borderBottom:'4px solid #ffcd41',boxSizing:'border-box' ,font: '15px Arial', padding: '10px 16px'}
+  const menuBtnCss = {backgroundColor:'#fff',borderRadius:'24px',border:'none',borderSizing:'border-box',
+    right:'0',alignItem:'center',display:'flex',
+    height:'40px',justifyContent:"center",minWidth:'82px',
+    position:'relative',top:'-8px',textDecoration:'none',color:"#3B3331",
+    font: '15px Arial', padding: '10px 16px'}
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <div className="flex justify-between items-center p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md">
+      <div className="flex justify-between items-center p-6 bg-gradient-to-r text-white shadow-md" style={menuCss}>
         <h1 className="text-2xl font-semibold tracking-wide">Banker Dashboard</h1>
-        <button
-          className="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-lg transition-all transform hover:scale-105 shadow-md"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+        <div style={{paddingTop:10}}>
+          <button
+            style={menuBtnCss}
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+       
       </div>
 
       <div className="p-10">

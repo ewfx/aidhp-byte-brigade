@@ -5,14 +5,21 @@ import Home from "./pages/Home";
 import AdminLogin from "./pages/AdminLogin";  // New admin login page
 import AdminDashboard from "./pages/AdminDashboard";  // New admin dashboard page
 
+
 const Main = () => {
   const navigate = useNavigate();
+
+  const btnlogin = {backgroundColor: '#d71e28',borderRadius:'24px',maxHeight:'40px',maxWidth:'100%',minWidth:'176px',font: '15px Arial'}
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <h1 className="text-2xl font-bold">Welcome to ByteBrigade Recommendation Engine</h1>
-      <button className="w-half bg-blue-500 text-white p-2 rounded" onClick={() => navigate("/customer-login")}>Customer Login</button>
-      <button className="w-half bg-blue-500 text-white p-2 rounded" onClick={() => navigate("/banker-login")}>Banker Login</button>
+      <div>
+        <button className="w-half bg-red-500 text-white p-2 rounded" style={btnlogin} onClick={() => navigate("/customer-login")}>Customer Login</button>
+      </div>
+      <div>
+        <button className="w-half bg-red-500 text-white p-2 rounded" style={btnlogin} onClick={() => navigate("/banker-login")}>Banker Login</button>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ const AdminLogin = ({ setBanker }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const btnlogin = {backgroundColor: '#d71e28',borderRadius:'24px',maxHeight:'40px',maxWidth:'100%',minWidth:'176px'}
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -14,6 +15,7 @@ const AdminLogin = ({ setBanker }) => {
     const banker = bankers.find((u) => u.username === username && u.password === password);
 
     console.log(banker)
+
 
     if (banker) {
       setBanker(banker); // Save banker info
@@ -46,9 +48,12 @@ const AdminLogin = ({ setBanker }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-            Login
-          </button>
+          <div>
+            <button className="w-full bg-red-500 text-white p-2 rounded hover:bg-blue-600" style={btnlogin}>
+              Login
+            </button>
+          </div>
+          
         </form>
       </div>
     </div>

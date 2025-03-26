@@ -19,6 +19,8 @@ const Login = ({ setCustomer }) => {
     }
   };
 
+  const btnlogin = {backgroundColor: '#d71e28',borderRadius:'24px',maxHeight:'40px',maxWidth:'100%',minWidth:'176px',font: '15px Arial'}
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
@@ -36,9 +38,12 @@ const Login = ({ setCustomer }) => {
           className="w-full p-2 border rounded mb-2"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="w-full bg-blue-500 text-white p-2 rounded" onClick={handleLogin}>
-          Sign In
-        </button>
+          <div>
+            <button className="w-full bg-red-500 text-white p-2 rounded hover:bg-blue-600" style={btnlogin} onClick={handleLogin}>
+              Login
+            </button>
+          </div>
+        
       </div>
     </div>
   );
