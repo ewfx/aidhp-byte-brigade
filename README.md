@@ -39,7 +39,15 @@ A brief overview of your project and its purpose. Mention which problem statemen
 **Banker Flow**
 ![Banker Flow](artifacts/sequence_diagrams/Banker_Flow.png)
 ## 💡 Inspiration
-What inspired you to create this project? Describe the problem you're solving.
+The inspiration for this project came from the need to enhance customer experience and engagement in the banking sector by offering personalized product recommendations. Traditional banking product recommendations are often generic and lack personalization, leading to low conversion rates and customer dissatisfaction. We wanted to leverage AI and machine learning to create a smart, data-driven recommendation system that helps both customers and bankers make informed decisions.
+
+Customers often struggle to find relevant financial products (loans, credit cards, investment plans, etc.) that align with their needs. Similarly, bankers lack an efficient way to identify and recommend the best products to their assigned customers. Our solution aims to:
+	•	Personalize banking recommendations based on customer profiles, transactions, and interests.
+	•	Assist bankers by providing an overview of the best-suited products for their customers.
+	•	Use AI models to generate accurate, relevant, and explainable product suggestions.
+	•	Enhance user experience by integrating multimodal AI and similarity analysis for better matching.
+
+By solving this problem, we aim to bridge the gap between customers and financial products while improving conversion rates and customer satisfaction. 🚀
 
 ## ⚙️ What It Does
 Explain the key features and functionalities of your project.
