@@ -23,6 +23,11 @@ A brief overview of your project and its purpose. Mention which problem statemen
 
 ![Screenshot 1](link-to-image)
 
+## Sequence Diagram:
+
+![Customer Flow](![Customer.png](artifacts/sequence_diagrams/Customer.png))
+
+![Banker Flow](![Banker.png](artifacts/sequence_diagrams/Banker.png))
 ## 💡 Inspiration
 What inspired you to create this project? Describe the problem you're solving.
 
