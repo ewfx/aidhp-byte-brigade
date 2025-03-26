@@ -116,7 +116,7 @@ Describe the major technical or non-technical challenges your team encountered.
 - 🔹 Cloud: GCP Custom Search API
 
 ## 👥 Team
-- **Bibhudatta Mishra** - [GitHub](#) | [LinkedIn](#)
+- **Bibhudatta Mishra** - [[GitHub](https://github.com/brownbraniac)](#) | [LinkedIn](#)
 - **Abinash Prusty** - [GitHub](#) | [LinkedIn](#)
 - **Zabir Akram** - [GitHub](#) | [LinkedIn](#)
 - **Deepak Kumar Kar** - [GitHub](#) | [LinkedIn](#)
