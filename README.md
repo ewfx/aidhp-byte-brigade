@@ -29,9 +29,6 @@ A brief overview of your project and its purpose. Mention which problem statemen
 
 ![Hyper_Personalization_Recommendation_System](artifacts/demo/Hyper_Personalization_Recommendation_System.pptx)
 
-🖼️ Screenshots:
-
-![Screenshot 1](link-to-image)
 
 **Architecture:**
 https://github.com/ewfx/aidhp-byte-brigade/blob/main/artifacts/arch/ByteBrigade-Architecture.png
@@ -93,7 +90,34 @@ By combining machine learning, natural language processing, and multimodal AI, o
 Briefly outline the technologies, frameworks, and tools used in development.
 
 ## 🚧 Challenges We Faced
-Describe the major technical or non-technical challenges your team encountered.
+During the development of our AI-powered product recommendation system, we encountered several technical and non-technical challenges. Here are the key obstacles we faced and how we tackled them:
+
+**1. Data Handling & Retrieval**
+
+	•	Challenge: Customer data was stored in a CSV file (customerdata.csv), making data retrieval less efficient compared to a structured database.
+	•	Solution: We structured the backend to efficiently read and process data from the CSV file while ensuring minimal latency.
+
+**2. Model Integration & Response Formatting**
+
+	•	Challenge: Different AI models (Gemini, Hugging Face T5, CLIP, SBERT) returned responses in different formats, making it difficult to process them seamlessly.
+	•	Solution: We adjusted our backend processing logic to handle responses dynamically and extract relevant insights.
+
+**3. Multimodal Matching Complexity**
+
+	•	Challenge: CLIP was used for text-to-image matching, but it required fine-tuning to ensure product images matched the textual recommendations correctly.
+	•	Solution: We optimized prompt engineering and embedding similarity thresholds to improve matching accuracy.
+
+**4. Ensuring Personalized & Relevant Recommendations**
+
+	•	Challenge: Some recommendations were too generic, not fully aligning with user preferences.
+	•	Solution: We fine-tuned SBERT similarity scores and applied context-aware filtering to improve relevance.
+
+**5. Real-Time Product Purchase Link Retrieval**
+
+	•	Challenge: GCP Custom Search API sometimes returned irrelevant purchase links.
+	•	Solution: We fine-tuned the search queries and ranking logic to fetch the most relevant links.
+
+Despite these challenges, our team successfully designed, optimized, and deployed a scalable AI-powered recommendation system that enhances customer engagement and helps bankers offer personalized financial guidance.
 
 ## 🏃 How to Run
 ### Backend (AI Engine)
