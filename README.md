@@ -91,7 +91,7 @@ Our project integrates multiple AI models, cloud services, and backend technolog
 
 **1. Backend & Data Processing**
 	
- •	Python (FastAPI / Flask) – Used to build the backend API for processing customer requests.
+**•	Python (FastAPI / Flask)** – Used to build the backend API for processing customer requests.
 	
  •	Pandas  – For handling and processing the customer data stored in customerdata.csv.
 	
