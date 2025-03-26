@@ -110,10 +110,9 @@ Describe the major technical or non-technical challenges your team encountered.
    ```
 
 ## 🏗️ Tech Stack
-- 🔹 Frontend: React / Vue / Angular
-- 🔹 Backend: Node.js / FastAPI / Django
-- 🔹 Database: PostgreSQL / Firebase
-- 🔹 Other: OpenAI API / Twilio / Stripe
+- 🔹 Frontend: React
+- 🔹 Backend: Flask API
+- 🔹 Other: Gemini AI , Hugging Face T5  , CLIP , SBERT & GCP Custom Search AP
 
 ## 👥 Team
 - **Bibhudatta Mishra** - [GitHub](#) | [LinkedIn](#)
