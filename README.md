@@ -25,6 +25,10 @@ A brief overview of your project and its purpose. Mention which problem statemen
 
 (https://drive.google.com/file/d/1315-UXgavLlsbtkcpWQ7u5K9WoKTcPvi/view?usp=drive_link)
 
+📹 [Presentation](#) 
+
+![Hyper_Personalization_Recommendation_System](artifacts/demo/Hyper_Personalization_Recommendation_System.pptx)
+
 🖼️ Screenshots:
 
 ![Screenshot 1](link-to-image)
