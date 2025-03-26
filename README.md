@@ -111,8 +111,9 @@ Describe the major technical or non-technical challenges your team encountered.
 
 ## 🏗️ Tech Stack
 - 🔹 Frontend: React
-- 🔹 Backend: Flask API
-- 🔹 Other: Gemini AI , Hugging Face T5  , CLIP , SBERT & GCP Custom Search AP
+- 🔹 Backend: Python Flask API
+- 🔹 Models: Gemini AI , Hugging Face T5  , CLIP , SBERT
+- 🔹 Cloud: GCP Custom Search API
 
 ## 👥 Team
 - **Bibhudatta Mishra** - [GitHub](#) | [LinkedIn](#)
